@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro e Inicio de Sesión</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <h1>Sistema de Usuarios</h1>
+    <div class="forms-container">
+        <div>
+            <h2>Registro</h2>
+
+            <form id="registerForm">
+
+                <input type="text" id="registerUsername" placeholder="Usuario" required>
+
+                <input type="password" id="registerPassword" placeholder="Contraseña" required>
+
+                <button type="submit">
+                    Registrar
+                </button>
+
+            </form>
+        </div>
+
+        <div>
+            <h2>Iniciar Sesión</h2>
+
+            <form id="loginForm">
+
+                <input type="text" id="loginUsername" placeholder="Usuario" required>
+
+                <input type="password" id="loginPassword" placeholder="Contraseña" required>
+
+                <button type="submit">
+                    Entrar
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script type="module" src="./javascript/script.js"></script>
+</body>
+
+</html>

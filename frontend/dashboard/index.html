@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>
+            Bienvenido
+            <span id="username"></span>
+        </h1>
+
+        <button><a href="../index.html">Cerrar Sesion</a></button>
+    </header>
+
+    <main>
+
+        <section class="container">
+
+            <h2>Nueva Tarea</h2>
+
+            <form id="create_form">
+
+                <input
+                    type="text"
+                    id="new_title"
+                    placeholder="Título"
+                    required>
+
+                <button type="submit">
+                    Crear
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="container">
+
+            <h2>Tareas</h2>
+
+            <div id="tasks_list">
+
+            </div>
+
+        </section>
+
+        <section class="container">
+
+            <h2>Detalle de Tarea</h2>
+
+            <form id="update_form">
+
+                <input
+                    type="hidden"
+                    id="task_id">
+
+                <input
+                    type="text"
+                    id="selected_title"
+                    placeholder="Seleccione una tarea"
+                    disabled
+                    required>
+
+                <div class="actions">
+
+                    <button
+                        type="submit"
+                        id="btn_update"
+                        disabled>
+
+                        Actualizar
+                    </button>
+
+                    <button
+                        type="button"
+                        id="btn_delete"
+                        disabled>
+
+                        Eliminar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="./javascript/script.js">
+    </script>
+
+</body>
+
+</html>
