@@ -2,25 +2,17 @@ const db = require('../config/db');
 
 exports.readTasks = (req, res) => {
 
-    const { user } = req.body;
-
-    if (!user) {
-        return res.status(400).json({
-            message: 'Debe proporcionar un usuario'
-        });
-    }
+    const userId = req.user.id;
 
     const sql = `
-        SELECT t.task_id, t.title
-        FROM tasks t
-        INNER JOIN users u
-        ON t.id_user = u.user_id
-        WHERE u.username = ?
+        SELECT task_id, title
+        FROM tasks
+        WHERE id_user = ?
     `;
 
     db.query(
         sql,
-        [user],
+        [userId],
         (error, results) => {
 
             if (error) {
@@ -36,35 +28,28 @@ exports.readTasks = (req, res) => {
 
 exports.createTask = (req, res) => {
 
-    const { user, title } = req.body;
+    const { title } = req.body;
+    const userId = req.user.id;
 
-    if (!user || !title) {
+    if (!title) {
         return res.status(400).json({
-            message: 'Debe capturar todos los datos'
+            message: 'Debe capturar el título'
         });
     }
 
     const sql = `
         INSERT INTO tasks(title, id_user)
-        SELECT ?, user_id
-        FROM users
-        WHERE username = ?
+        VALUES(?, ?)
     `;
 
     db.query(
         sql,
-        [title, user],
+        [title, userId],
         (error, result) => {
 
             if (error) {
                 return res.status(500).json({
                     message: 'No se pudo crear la tarea'
-                });
-            }
-
-            if (result.affectedRows === 0) {
-                return res.status(404).json({
-                    message: 'Usuario no encontrado'
                 });
             }
 
@@ -78,26 +63,25 @@ exports.createTask = (req, res) => {
 
 exports.readTask = (req, res) => {
 
-    const { user, task_id } = req.body;
+    const { task_id } = req.body;
+    const userId = req.user.id;
 
-    if (!user || !task_id) {
+    if (!task_id) {
         return res.status(400).json({
-            message: 'Debe proporcionar usuario y tarea'
+            message: 'Debe proporcionar una tarea'
         });
     }
 
     const sql = `
-        SELECT t.task_id, t.title
-        FROM tasks t
-        INNER JOIN users u
-        ON t.id_user = u.user_id
-        WHERE t.task_id = ?
-        AND u.username = ?
+        SELECT task_id, title
+        FROM tasks
+        WHERE task_id = ?
+        AND id_user = ?
     `;
 
     db.query(
         sql,
-        [task_id, user],
+        [task_id, userId],
         (error, results) => {
 
             if (error) {
@@ -119,26 +103,25 @@ exports.readTask = (req, res) => {
 
 exports.updateTask = (req, res) => {
 
-    const { user, task_id, title } = req.body;
+    const { task_id, title } = req.body;
+    const userId = req.user.id;
 
-    if (!user || !task_id || !title) {
+    if (!task_id || !title) {
         return res.status(400).json({
             message: 'Debe proporcionar todos los datos'
         });
     }
 
     const sql = `
-        UPDATE tasks t
-        INNER JOIN users u
-        ON t.id_user = u.user_id
-        SET t.title = ?
-        WHERE t.task_id = ?
-        AND u.username = ?
+        UPDATE tasks
+        SET title = ?
+        WHERE task_id = ?
+        AND id_user = ?
     `;
 
     db.query(
         sql,
-        [title, task_id, user],
+        [title, task_id, userId],
         (error, result) => {
 
             if (error) {
@@ -162,26 +145,24 @@ exports.updateTask = (req, res) => {
 
 exports.deleteTask = (req, res) => {
 
-    const { user, task_id } = req.body;
+    const { task_id } = req.body;
+    const userId = req.user.id;
 
-    if (!user || !task_id) {
+    if (!task_id) {
         return res.status(400).json({
-            message: 'Debe proporcionar usuario y tarea'
+            message: 'Debe proporcionar una tarea'
         });
     }
 
     const sql = `
-        DELETE t
-        FROM tasks t
-        INNER JOIN users u
-        ON t.id_user = u.user_id
-        WHERE t.task_id = ?
-        AND u.username = ?
+        DELETE FROM tasks
+        WHERE task_id = ?
+        AND id_user = ?
     `;
 
     db.query(
         sql,
-        [task_id, user],
+        [task_id, userId],
         (error, result) => {
 
             if (error) {

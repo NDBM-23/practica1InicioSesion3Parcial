@@ -1,11 +1,22 @@
 const API_URL =
     "http://localhost:3000/api";
 
-function getUser() {
+function getToken() {
 
     return localStorage.getItem(
-        "username"
+        "token"
     );
+}
+
+function getHeaders() {
+
+    return {
+        "Content-Type":
+            "application/json",
+
+        "Authorization":
+            `Bearer ${getToken()}`
+    };
 }
 
 export async function readTasks() {
@@ -16,14 +27,8 @@ export async function readTasks() {
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body: JSON.stringify({
-                    user: getUser()
-                })
+                headers:
+                    getHeaders()
             }
         );
 
@@ -40,13 +45,10 @@ export async function createTask(
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                headers:
+                    getHeaders(),
 
                 body: JSON.stringify({
-                    user: getUser(),
                     title
                 })
             }
@@ -65,13 +67,10 @@ export async function readTask(
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                headers:
+                    getHeaders(),
 
                 body: JSON.stringify({
-                    user: getUser(),
                     task_id
                 })
             }
@@ -90,15 +89,13 @@ export async function updateTask(
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                headers:
+                    getHeaders(),
 
                 body: JSON.stringify({
-                    user: getUser(),
                     task_id:
                         task.task_id,
+
                     title:
                         task.title
                 })
@@ -118,13 +115,10 @@ export async function deleteTask(
             {
                 method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                headers:
+                    getHeaders(),
 
                 body: JSON.stringify({
-                    user: getUser(),
                     task_id
                 })
             }

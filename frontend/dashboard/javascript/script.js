@@ -104,13 +104,13 @@ document.addEventListener(
     "DOMContentLoaded",
     async () => {
 
-        const username =
+        const token =
             localStorage.getItem(
-                "username"
+                "token"
             );
 
         if (
-            !username
+            !token
         ) {
 
             window.location.href =
@@ -118,6 +118,11 @@ document.addEventListener(
 
             return;
         }
+
+        const username =
+            localStorage.getItem(
+                "username"
+            );
 
         document.getElementById(
             "username"
@@ -267,5 +272,23 @@ document.getElementById(
         renderSelectedTask();
 
         await loadTasks();
+    }
+);
+
+document.getElementById(
+    "logoutButton"
+).addEventListener(
+    "click",
+    () => {
+        localStorage.removeItem(
+            "token"
+        );
+
+        localStorage.removeItem(
+            "username"
+        );
+
+        window.location.href =
+            "../index.html";
     }
 );

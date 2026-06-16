@@ -17,7 +17,9 @@
             <span id="username"></span>
         </h1>
 
-        <button><a href="../index.html">Cerrar Sesion</a></button>
+        <button id="logoutButton">
+            Cerrar Sesión
+        </button>
     </header>
 
     <main>
@@ -28,11 +30,7 @@
 
             <form id="create_form">
 
-                <input
-                    type="text"
-                    id="new_title"
-                    placeholder="Título"
-                    required>
+                <input type="text" id="new_title" placeholder="Título" required>
 
                 <button type="submit">
                     Crear
@@ -58,31 +56,18 @@
 
             <form id="update_form">
 
-                <input
-                    type="hidden"
-                    id="task_id">
+                <input type="hidden" id="task_id">
 
-                <input
-                    type="text"
-                    id="selected_title"
-                    placeholder="Seleccione una tarea"
-                    disabled
-                    required>
+                <input type="text" id="selected_title" placeholder="Seleccione una tarea" disabled required>
 
                 <div class="actions">
 
-                    <button
-                        type="submit"
-                        id="btn_update"
-                        disabled>
+                    <button type="submit" id="btn_update" disabled>
 
                         Actualizar
                     </button>
 
-                    <button
-                        type="button"
-                        id="btn_delete"
-                        disabled>
+                    <button type="button" id="btn_delete" disabled>
 
                         Eliminar
                     </button>
@@ -95,9 +80,7 @@
 
     </main>
 
-    <script
-        type="module"
-        src="./javascript/script.js">
+    <script type="module" src="./javascript/script.js">
     </script>
 
 </body>

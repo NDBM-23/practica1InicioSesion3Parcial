@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
 
@@ -102,8 +103,21 @@ exports.login = (req, res) => {
                 });
             }
 
+            const token = jwt.sign(
+                {
+                    id: user.user_id,
+                    username: user.username
+                },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: '1h'
+                }
+            );
+
+
             res.status(200).json({
-                message: `Bienvenido ${user.username}`
+                message: `Bienvenido ${user.username}`,
+                token: token
             });
 
         }

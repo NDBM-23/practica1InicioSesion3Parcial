@@ -37,9 +37,12 @@ document.getElementById(
 
         alert(data.message);
 
-        if (
-            response.ok
-        ) {
+        if (response.ok) {
+
+            localStorage.setItem(
+                "token",
+                data.token
+            );
 
             localStorage.setItem(
                 "username",
